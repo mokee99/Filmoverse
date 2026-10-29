@@ -19,14 +19,141 @@
     <meta property="og:image:height" content="630">
     <meta property="og:site_name" content="ELAN">
     <meta property="og:locale" content="en_US">
+    <link rel="stylesheet" href="./css/global.css">
+    <link rel="stylesheet" href="./css/home.css">
+
     <script type="module" src="./js/home.js"></script>
 </head>
 
 <body>
-<section class="movies-section">
-  <h2>Movies & TV Shows</h2>
 
-  <div id="movies-container"></div>
-</section>
+  <section class="hero">
+    <div class="swiper hero-swiper">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide hero-slide">
+            <picture>
+                <source media="(max-width: 767px)" srcset="./assets/images/hero-one-mobile.webp">
+                <source media="(max-width: 991px)" srcset="./assets/images/hero-one-tablet.webp">
+                <img class="hero-slide__image" src="./assets/images/hero-one-big.webp" alt="South Wind 3 poster" loading="eager">
+            </picture>
+            <div class="container-lg hero-slide__container">
+              <div class="hero-slide__content">
+                <h1 class="hero-heading">Where power meets consequence</h1>
+                <p class="hero-paragraph">A raw dive into the streets — loyalty, ambition, and revenge collide in a world ruled by chaos. South Wind 3 keeps the pulse of crime and adrenaline</p>
+                <a href="" class="hero-slide__button">Explore</a>
+              </div>
+            </div>
+        </div>
+
+        <div class="swiper-slide hero-slide">
+            <picture>
+                <source media="(max-width: 767px)" srcset="./assets/images/hero-two-mobile.webp">
+                <source media="(max-width: 991px)" srcset="./assets/images/hero-two-tablet.webp">
+                <img class="hero-slide__image" src="./assets/images/hero-two-big.webp" alt="Sunday movie poster" loading="eager">
+            </picture>
+            <div class="container-lg hero-slide__container">
+              <div class="hero-slide__content">
+                <h1 class="hero-heading">A song of love and loss.</h1>
+                <p class="hero-paragraph">From the streets to the stage — the life of a voice that defined generations. A journey through rhythm, pain, and redemption.</p>
+                <a href="" class="hero-slide__button">Explore</a>
+              </div>
+            </div>
+        </div>
+
+        <div class="swiper-slide hero-slide">
+            <picture>
+                <source media="(max-width: 767px)" srcset="./assets/images/hero-three-mobile.webp">
+                <source media="(max-width: 991px)" srcset="./assets/images/hero-three-tablet.webp">
+                <img class="hero-slide__image" src="./assets/images/hero-three-big.webp" alt="Tycoon movie poster" loading="eager">
+            </picture>
+            <div class="container-lg hero-slide__container">
+              <div class="hero-slide__content">
+                <h1 class="hero-heading">Behind every empire, there’s a secret.</h1>
+                <p class="hero-paragraph">Greed, corruption, and the price of power. Tycoon reveals the hidden faces of success in a world built on control.</p>
+                <a href="" class="hero-slide__button">Explore</a>
+              </div>
+            </div>
+        </div>
+
+        <div class="swiper-slide hero-slide">
+            <picture>
+                <source media="(max-width: 767px)" srcset="./assets/images/hero-four-mobile.webp">
+                <source media="(max-width: 991px)" srcset="./assets/images/hero-four-tablet.webp">
+                <img class="hero-slide__image" src="./assets/images/hero-four-big.webp" alt="King Petar movie poster" loading="eager">
+            </picture>
+            <div class="container-lg hero-slide__container">
+              <div class="hero-slide__content">
+                <h1 class="hero-heading">A crown of sacrifice.</h1>
+                <p class="hero-paragraph">The story of a leader who carried a nation through war and hardship — a timeless reflection on courage, duty, and the human spirit.</p>
+                <a href="" class="hero-slide__button">Explore</a>
+              </div>
+            </div>
+        </div>
+
+        <div class="swiper-slide hero-slide">
+            <picture>
+                <source media="(max-width: 767px)" srcset="./assets/images/hero-five-mobile.webp">
+                <source media="(max-width: 991px)" srcset="./assets/images/hero-five-tablet.webp">
+                <img class="hero-slide__image" src="./assets/images/hero-five-big.webp" alt="4 Roses movie poster" loading="eager">
+            </picture>
+            <div class="container-lg hero-slide__container">
+              <div class="hero-slide__content">
+                <h1 class="hero-heading">One night. Countless secrets.</h1>
+                <p class="hero-paragraph">Beneath the neon lights of Belgrade, ambition and deception collide. A single disappearance will change the lives of everyone inside the Four Roses nightclub.</p>
+                <a href="" class="hero-slide__button">Explore</a>
+              </div>
+            </div>
+        </div>
+
+        <div class="swiper-slide hero-slide">
+            <picture>
+                <source media="(max-width: 767px)" srcset="./assets/images/hero-six-mobile.webp">
+                <source media="(max-width: 991px)" srcset="./assets/images/hero-six-tablet.webp">
+                <img class="hero-slide__image" src="./assets/images/hero-six-big.webp" alt="Sons Will movie poster" loading="eager">
+            </picture>
+            <div class="container-lg hero-slide__container">
+              <div class="hero-slide__content">
+                <h1 class="hero-heading">Where survival demands a price.</h1>
+                <p class="hero-paragraph">In a world ruled by chaos and bullets, a young warrior is chosen to avenge the fallen. An epic post-apocalyptic journey inspired by Serbian mythology and tradition.</p>
+                <a href="" class="hero-slide__button">Explore</a>
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-thumbnails">
+      <div class="swiper thumbs-swiper">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <img src="./assets/images/hero-one-thumbnail.webp" alt="South Wind thumbnail">
+          </div>
+
+          <div class="swiper-slide">
+            <img src="./assets/images/hero-two-thumbnail.webp" alt="Sunday thumbnail">
+          </div>
+
+           <div class="swiper-slide">
+            <img src="./assets/images/hero-three-thumbnail.webp" alt="Tycoon thumbnail">
+          </div>
+
+           <div class="swiper-slide">
+            <img src="./assets/images/hero-four-thumbnail.webp" alt="King Petar thumbnail">
+          </div>
+
+           <div class="swiper-slide">
+            <img src="./assets/images/hero-five-thumbnail.webp" alt="4 Roses thumbnail">
+          </div>
+
+           <div class="swiper-slide">
+            <img src="./assets/images/hero-six-thumbnail.webp" alt="Son's Will thumbnail">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
 </body>
 </html>
