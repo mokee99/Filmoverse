@@ -1,0 +1,251 @@
+
+/* =========================
+   HERO
+========================= */
+
+.hero {
+  position: relative;
+  width: 100%;
+}
+
+.hero-swiper {
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+}
+
+.hero-slide {
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+}
+
+.hero-slide > picture {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.hero-slide__image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero-slide::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0.75) 0%,
+    rgba(0, 0, 0, 0.45) 45%,
+    rgba(0, 0, 0, 0.1) 100%
+  );
+  pointer-events: none;
+}
+
+.hero-slide__container {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.hero-slide__content {
+  width: 100%;
+  padding-bottom: 80px;
+}
+
+.hero-heading {
+  max-width: 600px;
+  font-size: 72px;
+  font-weight: 700;
+}
+
+.hero-paragraph {
+  max-width: 400px;
+  margin-top: 16px;
+}
+
+.hero-slide__button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 148px;
+  height: 44px;
+  margin-top: 24px;
+  background: var(--clr-red);
+  border-radius: 16px;
+  transition: background-color 0.25s ease;
+}
+
+.hero-slide__button:hover {
+  background: #b82323;
+}
+
+.hero-slide__button:focus-visible {
+  outline: 2px solid var(--clr-white);
+  outline-offset: 4px;
+}
+
+/* =========================
+   THUMBNAIL BAR
+========================= */
+
+.hero-thumbnails {
+  --thumb-width: 196px;
+  --thumb-ratio: 196 / 244;
+  --thumb-gap: 24px;
+  --thumb-scale: 1.16;
+  --thumb-padding: 24px;
+
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  z-index: 10;
+
+  transform: translate(-50%, 20%);
+
+  width: calc(100% - 24px);
+  max-width: 1344px;
+  padding: var(--thumb-padding);
+
+  border-radius: 24px;
+  background: var(--clr-slider-bg);
+
+  backdrop-filter: blur(40px);
+  -webkit-backdrop-filter: blur(40px);
+}
+
+/*
+  Viewport skriva postere izvan sive trake.
+  Swiper dobija prostor za uvecani poster,
+  bez menjanja visine spoljasnjeg omotaca.
+*/
+
+.hero-thumbnails__viewport {
+  overflow: hidden;
+  margin: calc(-1 * var(--thumb-padding));
+  border-radius: inherit;
+}
+
+.thumbs-swiper {
+  width: 100%;
+  padding: var(--thumb-padding);
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.thumbs-swiper .swiper-wrapper {
+  align-items: center;
+}
+
+.thumbs-swiper .swiper-slide {
+  position: relative;
+  width: var(--thumb-width);
+  height: auto;
+  aspect-ratio: var(--thumb-ratio);
+  flex-shrink: 0;
+  cursor: pointer;
+  border-radius: 16px;
+}
+
+.thumbs-swiper .swiper-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: inherit;
+  transition:
+    transform 0.35s ease,
+    outline-color 0.35s ease;
+}
+
+.thumbs-swiper .swiper-slide-thumb-active {
+  z-index: 2;
+}
+
+.thumbs-swiper .swiper-slide-thumb-active img {
+  transform: scale(var(--thumb-scale));
+  outline: 2px solid var(--clr-red);
+  outline-offset: -2px;
+}
+
+/* =========================
+   TABLET
+========================= */
+
+@media (max-width: 991px) {
+  .hero-heading {
+    font-size: 60px;
+  }
+
+  .hero-slide__content {
+    padding-bottom: 60px;
+  }
+
+  .hero-thumbnails {
+    --thumb-width: 157px;
+    --thumb-scale: 1.12;
+    --thumb-padding: 16px;
+  }
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 767px) {
+  .hero-heading {
+    font-size: 48px;
+  }
+
+  .hero-slide__content {
+    padding-bottom: 40px;
+  }
+
+  .hero-slide::before {
+    background: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.15) 0%,
+      rgba(0, 0, 0, 0.5) 45%,
+      rgba(0, 0, 0, 0.85) 100%
+    );
+  }
+
+  .hero-thumbnails {
+    --thumb-width: 151px;
+    --thumb-scale: 1.10;
+    --thumb-padding: 12px;
+  }
+}
+
+/* =========================
+   MOBILE LANDSCAPE
+========================= */
+
+@media (max-width: 767px) and (orientation: landscape) {
+  .hero-swiper {
+    height: max(100dvh, 650px);
+  }
+}
+
+/* =========================
+   REDUCED MOTION
+========================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-slide__button,
+  .thumbs-swiper .swiper-slide img {
+    transition: none;
+  }
+}

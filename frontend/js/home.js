@@ -1,3 +1,47 @@
+
+const thumbsSwiper = new Swiper(".thumbs-swiper", {
+  slidesPerView: "auto",
+  spaceBetween: 12,
+  watchSlidesProgress: true,
+  slideToClickedSlide: false,
+
+  breakpoints: {
+    768: {
+      spaceBetween: 16,
+    },
+    992: {
+      spaceBetween: 24,
+    },
+  },
+});
+
+const heroSwiper = new Swiper(".hero-swiper", {
+  slidesPerView: 1,
+  effect: "fade",
+
+  fadeEffect: {
+    crossFade: true,
+  },
+
+  loop: true,
+
+  autoplay: {
+    delay: 10000,
+    disableOnInteraction: false,
+    pauseOnMouseEnter: false,
+  },
+
+  thumbs: {
+    swiper: thumbsSwiper,
+    autoScrollOffset: 1,
+  },
+});
+
+
+
+
+
+
 import { fetchFromSanity } from './sanity-client.js';
 
 async function loadMovies() {
