@@ -158,6 +158,70 @@
     </div>
   </section>
 
+  <!-- SEARCH SECTION -->
+<section class="section search-section" id="search">
+  <div class="container-lg">
+
+    <!-- HEADER -->
+    <div class="search-header">
+      <h2 class="search-heading">Explore the<br>World of Film</h2>
+      <p class="search-description">Search, discover, and dive into a curated collection of movies and series. Find new favorites, revisit classics, and explore stories across every genre.</p>
+    </div>
+
+    <!-- SEARCH CONTROLS -->
+    <div class="search-controls">
+
+      <!-- SEARCH INPUT -->
+      <div class="search-input">
+        <img src="./assets/icons/search.svg" alt="" aria-hidden="true">
+        <input type="search" id="movie-search" placeholder="Search" aria-label="Search movies and TV shows">
+      </div>
+
+      <!-- CONTENT FILTERS -->
+      <div class="search-types">
+        <button type="button" class="search-type" data-type="movie">
+          <img src="./assets/icons/movie.svg" alt="" aria-hidden="true">
+          <span>Movies</span>
+        </button>
+
+        <button type="button" class="search-type" data-type="series">
+          <img src="./assets/icons/tv.svg" alt="" aria-hidden="true">
+          <span>TV Shows</span>
+        </button>
+
+        <button type="button" class="search-type" data-type="trending">
+          <img src="./assets/icons/trending.svg" alt="" aria-hidden="true">
+          <span>Trending</span>
+        </button>
+      </div>
+
+    </div>
+
+    <!-- GENRE FILTERS -->
+    <div class="search-genres">
+      <button type="button" class="genre-button" data-genre="Action">Action</button>
+      <button type="button" class="genre-button" data-genre="Drama">Drama</button>
+      <button type="button" class="genre-button" data-genre="Horror">Horror</button>
+      <button type="button" class="genre-button" data-genre="Comedy">Comedy</button>
+      <button type="button" class="genre-button" data-genre="Biography">Biography</button>
+      <button type="button" class="genre-button" data-genre="Crime">Crime</button>
+      <button type="button" class="genre-button" data-genre="Mystery">Mystery</button>
+      <button type="button" class="genre-button" data-genre="Romance">Romance</button>
+    </div>
+
+    <!-- MOVIES & SERIES GRID -->
+    <div class="search-grid" id="movies-container">
+      <!-- Cards generated from Sanity CMS -->
+    </div>
+
+    <!-- LOAD MORE -->
+    <div class="search-load-more">
+      <button type="button" class="search-load-more__button" id="load-more-button">Load More</button>
+    </div>
+
+  </div>
+</section>
+
 
 
 </body>
