@@ -134,7 +134,7 @@ function renderMovies() {
     card.className = "movie-card";
 
     if (movie.slug?.current) {
-      card.href = `movie.html?slug=${encodeURIComponent(movie.slug.current)}`;
+      card.href = `title.html?slug=${encodeURIComponent(movie.slug.current)}`;
     } else {
       card.removeAttribute("href");
     }
@@ -252,3 +252,383 @@ genreButtons.forEach((button) => {
 // =========================
 
 loadMovies();
+
+
+// =========================
+// TOP 10 MOVIES & SERIES
+// =========================
+
+async function loadTopTen() {
+  try {
+    const topMovies = await fetchFromSanity(`
+      *[_type == "movie" && contentType == "movie" && defined(imdbRating)]
+      | order(imdbRating desc, name asc)[0...10] {
+        name,
+        slug,
+        "coverUrl": coverImage.asset->url
+      }
+    `);
+
+    const topSeries = await fetchFromSanity(`
+      *[_type == "movie" && contentType == "series" && defined(imdbRating)]
+      | order(imdbRating desc, name asc)[0...10] {
+        name,
+        slug,
+        "coverUrl": coverImage.asset->url
+      }
+    `);
+
+    renderTopTen(topMovies, "#top-movies-container");
+    renderTopTen(topSeries, "#top-series-container");
+
+    initTopTenSwipers();
+
+  } catch (error) {
+    console.error("Failed to load Top 10:", error);
+  }
+}
+
+// =========================
+// RENDER TOP 10 POSTERS
+// =========================
+
+function renderTopTen(items, containerSelector) {
+  const container = document.querySelector(containerSelector);
+
+  if (!container) return;
+
+  container.innerHTML = "";
+
+  for (const item of items) {
+    const slide = document.createElement("div");
+    slide.className = "swiper-slide";
+
+    const link = document.createElement("a");
+
+    if (item.slug?.current) {
+      link.href = `title.html?slug=${encodeURIComponent(item.slug.current)}`;
+    }
+
+    const image = document.createElement("img");
+    image.src = item.coverUrl || "";
+    image.alt = item.name;
+    image.loading = "lazy";
+
+    link.append(image);
+    slide.append(link);
+    container.append(slide);
+  }
+}
+
+// =========================
+// INITIALIZE SWIPERS
+// =========================
+
+function initTopTenSwipers() {
+  const swiperOptions = {
+    slidesPerView: 2,
+    spaceBetween: 16,
+    speed: 600,
+    watchOverflow: true,
+    breakpoints: {
+      768: {
+        slidesPerView: 4,
+        spaceBetween: 16
+      },
+      992: {
+        slidesPerView: 5,
+        spaceBetween: 16
+      }
+    }
+  };
+
+  new Swiper(".top-movies-swiper", {
+    ...swiperOptions,
+    navigation: {
+      nextEl: ".top-movies-next"
+    }
+  });
+
+  new Swiper(".top-series-swiper", {
+    ...swiperOptions,
+    navigation: {
+      nextEl: ".top-series-next"
+    }
+  });
+}
+
+// =========================
+// INITIAL LOAD
+// =========================
+
+loadTopTen();
+
+
+// =========================
+// HOT SECTION
+// =========================
+
+async function loadHot() {
+  try {
+    const hotTitles = await fetchFromSanity(`
+      *[_type == "movie" && hot == true] {
+        name,
+        slug,
+        contentType,
+        year,
+        imdbRating,
+        runtime,
+        episodes,
+        genres,
+        summary,
+        "backgroundUrl": heroImage.asset->url
+      }
+    `);
+
+    renderHot(hotTitles);
+    initHotSwiper();
+
+  } catch (error) {
+    console.error("Failed to load Hot section:", error);
+  }
+}
+
+// =========================
+// RENDER HOT SLIDES
+// =========================
+
+function renderHot(items) {
+  const container = document.querySelector("#hot-container");
+
+  if (!container) return;
+
+  container.innerHTML = "";
+
+  for (const item of items) {
+    const slide = document.createElement("div");
+    slide.className = "swiper-slide";
+
+    const card = document.createElement("article");
+    card.className = "hot-card";
+
+    const imageWrapper = document.createElement("div");
+    imageWrapper.className = "hot-card__image";
+
+    const image = document.createElement("img");
+    image.src = item.backgroundUrl || "";
+    image.alt = item.name;
+    image.loading = "lazy";
+
+    const overlay = document.createElement("div");
+    overlay.className = "hot-card__overlay";
+
+    imageWrapper.append(image, overlay);
+
+    const content = document.createElement("div");
+    content.className = "hot-card__content";
+
+    const meta = document.createElement("div");
+    meta.className = "hot-card__meta";
+
+    const metaItems = [
+      item.imdbRating != null ? `IMDb ${item.imdbRating}` : null,
+      item.year,
+      item.contentType === "series" ? item.episodes : item.runtime,
+      ...(item.genres || []).slice(0, 2)
+    ].filter(Boolean);
+
+    meta.textContent = metaItems.join(" | ");
+
+    const details = document.createElement("div");
+    details.className = "hot-card__details";
+
+    const title = document.createElement("h2");
+    title.className = "hot-card__title";
+    title.textContent = item.name;
+
+    const summary = document.createElement("p");
+    summary.className = "hot-card__summary";
+    summary.textContent = item.summary || "";
+
+    const button = document.createElement("a");
+    button.className = "hot-card__button";
+    button.textContent = "Explore";
+
+    if (item.slug?.current) {
+      button.href = `title.html?slug=${encodeURIComponent(item.slug.current)}`;
+    }
+
+    details.append(title, summary, button);
+    content.append(meta, details);
+    card.append(imageWrapper, content);
+    slide.append(card);
+    container.append(slide);
+  }
+}
+
+// =========================
+// INITIALIZE HOT SWIPER
+// =========================
+
+function initHotSwiper() {
+  new Swiper(".hot-swiper", {
+    slidesPerView: 1,
+    effect: "fade",
+    fadeEffect: {
+      crossFade: true
+    },
+    loop: true,
+    speed: 800,
+    autoplay: {
+      delay: 8000,
+      disableOnInteraction: false,
+      pauseOnMouseEnter: false
+    }
+  });
+}
+
+// =========================
+// INITIAL LOAD
+// =========================
+
+loadHot();
+
+
+
+// =========================
+// BLOG SLIDER SECTION
+// =========================
+
+async function loadBlogSlider() {
+  try {
+    const blogs = await fetchFromSanity(`
+      *[_type == "blogPost"] | order(_createdAt desc)[0...4] {
+        _id,
+        title,
+        slug,
+        summarySlider,
+        "imageUrl": thumbnailImage.asset->url
+      }
+    `);
+
+    if (!blogs.length) return;
+
+    renderBlogSlider(blogs);
+    initBlogSwiper(blogs);
+
+  } catch (error) {
+    console.error("Failed to load Blog Slider:", error);
+  }
+}
+
+// =========================
+// RENDER BLOG SLIDES
+// =========================
+
+function renderBlogSlider(blogs) {
+  const container = document.querySelector("#blog-slider-container");
+
+  if (!container) return;
+
+  container.innerHTML = "";
+
+  for (const blog of blogs) {
+    const slide = document.createElement("div");
+    slide.className = "swiper-slide";
+
+    const image = document.createElement("img");
+    image.src = blog.imageUrl || "";
+    image.alt = blog.title;
+    image.loading = "lazy";
+
+    slide.append(image);
+    container.append(slide);
+  }
+}
+
+// =========================
+// UPDATE ACTIVE BLOG CONTENT
+// =========================
+
+function updateActiveBlog(blogs, index) {
+  const blog = blogs[index];
+
+  if (!blog) return;
+
+  const title = document.querySelector("#blog-active-title");
+  const summary = document.querySelector("#blog-active-summary");
+  const link = document.querySelector("#blog-active-link");
+
+  title.textContent = blog.title;
+  summary.textContent = blog.summarySlider || "";
+
+  if (blog.slug?.current) {
+    link.href = `article.html?slug=${encodeURIComponent(blog.slug.current)}`;
+  } else {
+    link.removeAttribute("href");
+  }
+}
+
+// =========================
+// INITIALIZE BLOG SWIPER
+// =========================
+
+function initBlogSwiper(blogs) {
+  const container = document.querySelector("#blog-slider-container");
+
+  if (!container || !blogs.length) return;
+
+  // Duplicate the original slides for a seamless loop
+  const originalSlides = Array.from(container.children);
+
+  originalSlides.forEach((slide) => {
+    container.append(slide.cloneNode(true));
+  });
+
+  new Swiper(".blog-swiper", {
+    slidesPerView: 1,
+    centeredSlides: true,
+    loop: true,
+    speed: 600,
+    grabCursor: false,
+    allowTouchMove: false,
+    slideToClickedSlide: false,
+    watchSlidesProgress: true,
+
+    navigation: {
+      nextEl: ".blog-slider__next",
+      prevEl: ".blog-slider__prev"
+    },
+
+    breakpoints: {
+      768: {
+        slidesPerView: 3,
+        centeredSlides: true,
+        spaceBetween: 0,
+        allowTouchMove: true
+      },
+      992: {
+        slidesPerView: 3,
+        centeredSlides: true,
+        spaceBetween: 0,
+        allowTouchMove: false
+      }
+    },
+
+    on: {
+      init: function () {
+        updateActiveBlog(blogs, this.realIndex % blogs.length);
+      },
+
+      realIndexChange: function () {
+        updateActiveBlog(blogs, this.realIndex % blogs.length);
+      }
+    }
+  });
+}
+
+// =========================
+// INITIAL LOAD
+// =========================
+
+loadBlogSlider();

@@ -1,0 +1,129 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Filmoverse | Movie & TV Show</title>
+  <meta name="description" content="Explore movies and TV shows on Filmoverse.">
+  <meta property="og:title" content="Filmoverse | Movie & TV Show">
+  <meta property="og:description" content="Explore movies and TV shows on Filmoverse.">
+  <meta property="og:type" content="video.other">
+
+  <link rel="stylesheet" href="./css/global.css">
+  <link rel="stylesheet" href="./css/title.css">
+
+  <script type="module" src="./js/title.js"></script>
+</head>
+
+<body>
+
+  <!-- NAVBAR -->
+  <div id="navbar-placeholder"></div>
+
+  <main>
+
+    <!-- HERO SECTION -->
+    <section class="title-hero">
+
+      <img id="title-hero-image" class="title-hero__image" src="" alt="">
+
+      <div class="title-hero__overlay" aria-hidden="true"></div>
+
+      <div class="title-hero__content container-lg">
+
+        <h1 id="title-name" class="title-hero__heading"></h1>
+
+        <a id="title-trailer" class="title-hero__trailer" href="#" target="_blank" rel="noopener noreferrer">
+          <img src="./assets/icons/video-icon.svg" alt="" aria-hidden="true">
+          <span>Watch Trailer</span>
+        </a>
+
+        <p id="title-summary" class="title-hero__summary"></p>
+
+        <div class="title-hero__meta">
+
+          <div id="title-genres" class="title-hero__genres"></div>
+
+          <span id="title-year" class="title-hero__meta-item"></span>
+
+          <span id="title-runtime" class="title-hero__meta-item"></span>
+
+          <span class="title-hero__rating">
+            <img class="title-hero__star" src="./assets/icons/star-icon.svg" alt="" aria-hidden="true">
+            <span id="title-rating"></span>
+          </span>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- DETAILS SECTION -->
+    <section class="title-details">
+
+      <div class="container-lg">
+
+        <div class="title-details__layout">
+
+          <!-- STORY -->
+          <div class="title-details__story">
+            <p id="title-description-one"></p>
+            <p id="title-description-two"></p>
+            <p id="title-description-three"></p>
+          </div>
+
+          <!-- CREATORS AND CAST -->
+          <div class="title-details__cast">
+
+            <h2 class="title-details__cast-heading">Creators and Cast</h2>
+
+            <dl class="title-details__cast-list">
+
+              <div class="title-details__cast-row">
+                <dt>Directors</dt>
+                <dd id="title-directors"></dd>
+              </div>
+
+              <div class="title-details__cast-row">
+                <dt>Writer</dt>
+                <dd id="title-writers"></dd>
+              </div>
+
+              <div class="title-details__cast-row">
+                <dt>Stars</dt>
+                <dd id="title-stars"></dd>
+              </div>
+
+            </dl>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- RELATED MOVIES / TV SHOWS -->
+    <section class="title-related section">
+
+      <div class="container-lg">
+
+        <h2 id="title-related-heading" class="title-related__heading">Related Movies</h2>
+
+        <div id="title-related-grid" class="title-related__grid"></div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <div id="footer-placeholder"></div>
+
+</body>
+</html>

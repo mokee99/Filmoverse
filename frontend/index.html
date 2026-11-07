@@ -222,6 +222,175 @@
   </div>
 </section>
 
+<!-- TOP 10 SECTION -->
+<section class="top-ten-section">
+  <div class="container-lg">
+
+    <!-- TOP 10 MOVIES -->
+    <div class="top-ten-group">
+      <h2 class="top-ten-heading">Top 10 Movies</h2>
+
+      <div class="top-ten-slider">
+        <div class="swiper top-movies-swiper">
+          <div class="swiper-wrapper" id="top-movies-container">
+            <!-- Movie posters generated from Sanity CMS -->
+          </div>
+        </div>
+
+        <button type="button" class="top-ten-next top-movies-next" aria-label="Next movies">
+          <img src="./assets/icons/arrow-right.svg" alt="" aria-hidden="true">
+        </button>
+      </div>
+    </div>
+
+    <!-- TOP 10 SERIES -->
+    <div class="top-ten-group">
+      <h2 class="top-ten-heading">Top 10 Series</h2>
+
+      <div class="top-ten-slider">
+        <div class="swiper top-series-swiper">
+          <div class="swiper-wrapper" id="top-series-container">
+            <!-- Series posters generated from Sanity CMS -->
+          </div>
+        </div>
+
+        <button type="button" class="top-ten-next top-series-next" aria-label="Next series">
+          <img src="./assets/icons/arrow-right.svg" alt="" aria-hidden="true">
+        </button>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- HOT SECTION -->
+<section class="hot-section">
+  <div class="container-lg">
+
+    <div class="swiper hot-swiper">
+      <div class="swiper-wrapper" id="hot-container">
+        <!-- Hot slides generated from Sanity CMS -->
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- BLOG SLIDER SECTION -->
+<section class="section blog-section">
+  <div class="container-lg">
+
+    <!-- HEADER -->
+    <div class="blog-header">
+      <h2 class="blog-heading">Keep exploring the world of domestic cinema</h2>
+      <p class="blog-description">Browse the blog, revisit the classics, and discover the stories that shaped our film culture.</p>
+    </div>
+
+    <!-- BLOG SLIDER -->
+    <div class="blog-slider">
+
+      <button type="button" class="blog-slider__prev" aria-label="Previous blog">
+        <img src="./assets/icons/arrow-left.svg" alt="" aria-hidden="true">
+      </button>
+
+      <div class="swiper blog-swiper">
+        <div class="swiper-wrapper" id="blog-slider-container">
+          <!-- Blog slides generated from Sanity CMS -->
+        </div>
+      </div>
+
+      <button type="button" class="blog-slider__next" aria-label="Next blog">
+        <img src="./assets/icons/arrow-right.svg" alt="" aria-hidden="true">
+      </button>
+
+    </div>
+
+    <!-- ACTIVE BLOG CONTENT -->
+    <div class="blog-content">
+      <h3 class="blog-content__title" id="blog-active-title"></h3>
+      <p class="blog-content__summary" id="blog-active-summary"></p>
+      <a href="#" class="blog-content__button" id="blog-active-link">See more</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- NEWSLETTER SECTION -->
+<section class="section newsletter-section">
+
+  <!-- BACKGROUND IMAGE -->
+  <picture class="newsletter-background">
+    <source media="(max-width: 767px)" srcset="./assets/images/newsletter-mobile-bg.webp">
+    <source media="(max-width: 991px)" srcset="./assets/images/newsletter-tablet-bg.webp">
+    <img src="./assets/images/newsletter-desktop-bg.webp" alt="" aria-hidden="true">
+  </picture>
+
+  <!-- GRADIENT OVERLAY -->
+  <div class="newsletter-overlay" aria-hidden="true"></div>
+
+  <!-- CONTENT -->
+  <div class="container-lg newsletter-container">
+    <div class="newsletter-content">
+
+      <h2 class="newsletter-heading">Stay in the Loop</h2>
+
+      <p class="newsletter-description">Get the latest reviews, curated collections, hidden gems, and must-watch releases delivered straight to your inbox.</p>
+
+      <!-- NEWSLETTER FORM -->
+      <form class="newsletter-form" id="newsletter-form">
+        <input type="email" class="newsletter-input" id="newsletter-email" name="email" placeholder="Enter your email" aria-label="Email address" autocomplete="email" required>
+        <button type="submit" class="newsletter-submit">SUBMIT</button>
+      </form>
+
+      <p class="newsletter-message" id="newsletter-message" role="status" aria-live="polite"></p>
+
+    </div>
+  </div>
+
+</section>
+
+
+<!-- FOOTER -->
+<footer class="footer">
+
+  <!-- LARGE LOGO -->
+  <div class="footer-logo-container">
+    <img class="footer-logo" src="./assets/images/FILMOVERSE.svg" alt="Filmoverse">
+  </div>
+
+  <!-- FOOTER CONTENT -->
+  <div class="footer-container">
+
+    <!-- LEFT CONTENT -->
+    <div class="footer-about">
+      <h2 class="footer-heading">Where Great Stories Live On</h2>
+
+      <p class="footer-description">Explore unforgettable films, hidden gems, and the voices that shape cinema. Every visit is a chance to discover something worth remembering.</p>
+
+      <div class="footer-socials">
+        <a href="#" aria-label="Instagram"><img src="./assets/icons/instagram.svg" alt=""></a>
+        <a href="#" aria-label="X"><img src="./assets/icons/x.svg" alt=""></a>
+        <a href="#" aria-label="Facebook"><img src="./assets/icons/facebook.svg" alt=""></a>
+      </div>
+
+      <p class="footer-copyright">© 2025 Filmoverse. All rights reserved.</p>
+    </div>
+
+    <!-- RIGHT NAVIGATION -->
+    <nav class="footer-navigation" aria-label="Footer navigation">
+      <span class="footer-navigation-title">Explore</span>
+
+      <ul class="footer-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="index.html#search">Movies</a></li>
+        <li><a href="index.html#search">Series</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="#newsletter">Newsletter</a></li>
+      </ul>
+    </nav>
+
+  </div>
+</footer>
 
 
 </body>
