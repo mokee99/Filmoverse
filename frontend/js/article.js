@@ -101,6 +101,17 @@ function renderArticle(article) {
   setText("article-title", article.introHeading);
   setText("article-intro", article.introParagraph);
 
+  // HERO TEXT ANIMATION
+const heroContent = document.querySelector(".article-hero__content");
+
+if (heroContent) {
+    requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+            heroContent.classList.add("is-visible");
+        });
+    });
+}
+
   // HERO IMAGES
   setImage(
     "article-hero-desktop",
