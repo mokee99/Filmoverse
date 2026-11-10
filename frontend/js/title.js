@@ -1,4 +1,5 @@
 
+
 import { fetchFromSanity } from "./sanity-client.js";
 
 // =========================
@@ -53,7 +54,7 @@ async function loadTitle() {
         paragraphTwo,
         paragraphThree,
         credits,
-        "heroUrl": heroImage.asset->url
+        "heroUrl": heroImage.asset->url + "?w=1920&auto=format&q=80"
       }
     `, { slug });
 
@@ -78,6 +79,8 @@ function renderTitle(title) {
   const heroImage = document.getElementById("title-hero-image");
 
   if (heroImage && title.heroUrl) {
+    heroImage.fetchPriority = "high";
+    heroImage.loading = "eager";
     heroImage.src = title.heroUrl;
     heroImage.alt = title.name;
   }
@@ -151,7 +154,8 @@ function renderGenres(genres) {
     }
 
     const link = document.createElement("a");
-    link.href = `index.html?genre=${encodeURIComponent(genre)}`;
+
+    link.href = `index.html?genre=${encodeURIComponent(genre.toLowerCase())}#search`;
     link.textContent = genre.charAt(0).toUpperCase() + genre.slice(1);
 
     container.append(link);

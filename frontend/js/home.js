@@ -247,10 +247,34 @@ genreButtons.forEach((button) => {
   });
 });
 
+
+// =========================
+// GENRE FILTER FROM URL
+// =========================
+
+function applyGenreFromUrl() {
+  const params = new URLSearchParams(window.location.search);
+  const genre = params.get("genre");
+
+  if (!genre) return;
+
+  const matchingButton = [...genreButtons].find(
+    button => button.dataset.genre.toLowerCase() === genre.toLowerCase()
+  );
+
+  if (!matchingButton) return;
+
+  selectedGenre = matchingButton.dataset.genre;
+
+  matchingButton.classList.add("is-active");
+  matchingButton.setAttribute("aria-pressed", "true");
+}
+
 // =========================
 // INITIAL LOAD
 // =========================
 
+applyGenreFromUrl();
 loadMovies();
 
 

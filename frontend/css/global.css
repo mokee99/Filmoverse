@@ -17,7 +17,7 @@
 
 @font-face {
     font-family: "Thunder";
-    src: url("../assets/font/Thunder-HC.ttf") format("truetype");
+    src: url("../assets/font/Thunder-LC.ttf") format("truetype");
     font-weight: 400;
     font-style: normal;
 }
@@ -29,6 +29,7 @@
     --clr-black: #000000;
     --clr-white: #FFFFFF;
     --clr-red: #D12B2B;
+    --clr-paragraph: #E5E5E5;
     --clr-search: #282727;
     --clr-buttons: #151515;
     --clr-slider-bg: rgba(217, 217, 217, 0.3);
@@ -43,7 +44,7 @@ html {
 
 body {
     background: var(--clr-black);
-    color: var(--clr-white);
+    color: var(--clr-paragraph);
 
     font-family: var(--ff-body);
     font-size: 1.0652rem;
@@ -91,6 +92,7 @@ h4,
 h5,
 h6 {
     font-family: var(--ff-heading);
+    color: var(--clr-white);
     font-weight: 200 800;
 }
 
