@@ -550,24 +550,35 @@ async function loadBlogSlider() {
 // =========================
 
 function renderBlogSlider(blogs) {
-  const container = document.querySelector("#blog-slider-container");
+    const container = document.querySelector("#blog-slider-container");
 
-  if (!container) return;
+    if (!container) return;
 
-  container.innerHTML = "";
+    container.innerHTML = "";
 
-  for (const blog of blogs) {
-    const slide = document.createElement("div");
-    slide.className = "swiper-slide";
+    for (const blog of blogs) {
+        const slide = document.createElement("div");
+        slide.className = "swiper-slide";
 
-    const image = document.createElement("img");
-    image.src = blog.imageUrl || "";
-    image.alt = blog.title;
-    image.loading = "lazy";
+        const image = document.createElement("img");
+        image.src = blog.imageUrl || "";
+        image.alt = blog.title;
+        image.loading = "lazy";
 
-    slide.append(image);
-    container.append(slide);
-  }
+        if (blog.slug?.current) {
+            const link = document.createElement("a");
+            link.className = "blog-slide__link";
+            link.href = `article.html?slug=${encodeURIComponent(blog.slug.current)}`;
+            link.setAttribute("aria-label", `Read ${blog.title}`);
+
+            link.append(image);
+            slide.append(link);
+        } else {
+            slide.append(image);
+        }
+
+        container.append(slide);
+    }
 }
 
 // =========================
@@ -593,63 +604,65 @@ function updateActiveBlog(blogs, index) {
   }
 }
 
+
 // =========================
 // INITIALIZE BLOG SWIPER
 // =========================
 
 function initBlogSwiper(blogs) {
-  const container = document.querySelector("#blog-slider-container");
+    const container = document.querySelector("#blog-slider-container");
 
-  if (!container || !blogs.length) return;
+    if (!container || !blogs.length) return;
 
-  // Duplicate the original slides for a seamless loop
-  const originalSlides = Array.from(container.children);
+    // Duplicate the original slides for a seamless loop
+    const originalSlides = Array.from(container.children);
 
-  originalSlides.forEach((slide) => {
-    container.append(slide.cloneNode(true));
-  });
+    originalSlides.forEach((slide) => {
+        container.append(slide.cloneNode(true));
+    });
 
-  new Swiper(".blog-swiper", {
-    slidesPerView: 1,
-    centeredSlides: true,
-    loop: true,
-    speed: 600,
-    grabCursor: false,
-    allowTouchMove: false,
-    slideToClickedSlide: false,
-    watchSlidesProgress: true,
-
-    navigation: {
-      nextEl: ".blog-slider__next",
-      prevEl: ".blog-slider__prev"
-    },
-
-    breakpoints: {
-      768: {
-        slidesPerView: 3,
+    new Swiper(".blog-swiper", {
+        slidesPerView: 1,
         centeredSlides: true,
-        spaceBetween: 0,
-        allowTouchMove: true
-      },
-      992: {
-        slidesPerView: 3,
-        centeredSlides: true,
-        spaceBetween: 0,
-        allowTouchMove: false
-      }
-    },
+        loop: true,
+        speed: 600,
+        grabCursor: false,
+        allowTouchMove: true,
+        slideToClickedSlide: false,
+        watchSlidesProgress: true,
 
-    on: {
-      init: function () {
-        updateActiveBlog(blogs, this.realIndex % blogs.length);
-      },
+        navigation: {
+            nextEl: ".blog-slider__next",
+            prevEl: ".blog-slider__prev"
+        },
 
-      realIndexChange: function () {
-        updateActiveBlog(blogs, this.realIndex % blogs.length);
-      }
-    }
-  });
+        breakpoints: {
+            768: {
+                slidesPerView: 3,
+                centeredSlides: true,
+                spaceBetween: 0,
+                allowTouchMove: true
+            },
+            992: {
+                slidesPerView: 3,
+                centeredSlides: true,
+                spaceBetween: 0,
+                allowTouchMove: false
+            }
+        },
+
+        on: {
+            init: function () {
+                updateActiveBlog(blogs, this.realIndex % blogs.length);
+            },
+
+            realIndexChange: function () {
+                updateActiveBlog(blogs, this.realIndex % blogs.length);
+            }
+        }
+    });
 }
+
 
 // =========================
 // INITIAL LOAD
