@@ -287,18 +287,22 @@ async function loadTopTen() {
     const topMovies = await fetchFromSanity(`
       *[_type == "movie" && contentType == "movie" && defined(imdbRating)]
       | order(imdbRating desc, name asc)[0...10] {
-        name,
-        slug,
-        "coverUrl": coverImage.asset->url
+          name,
+          slug,
+          year,
+          imdbRating,
+          "coverUrl": coverImage.asset->url
       }
     `);
 
     const topSeries = await fetchFromSanity(`
       *[_type == "movie" && contentType == "series" && defined(imdbRating)]
       | order(imdbRating desc, name asc)[0...10] {
-        name,
-        slug,
-        "coverUrl": coverImage.asset->url
+          name,
+          slug,
+          year,
+          imdbRating,
+          "coverUrl": coverImage.asset->url
       }
     `);
 
@@ -316,33 +320,61 @@ async function loadTopTen() {
 // RENDER TOP 10 POSTERS
 // =========================
 
+
 function renderTopTen(items, containerSelector) {
-  const container = document.querySelector(containerSelector);
+    const container = document.querySelector(containerSelector);
 
-  if (!container) return;
+    if (!container) return;
 
-  container.innerHTML = "";
+    container.innerHTML = "";
 
-  for (const item of items) {
-    const slide = document.createElement("div");
-    slide.className = "swiper-slide";
+    for (const item of items) {
+        const slide = document.createElement("div");
+        slide.className = "swiper-slide";
 
-    const link = document.createElement("a");
+        const link = document.createElement("a");
+        link.className = "top-ten-card";
 
-    if (item.slug?.current) {
-      link.href = `title.html?slug=${encodeURIComponent(item.slug.current)}`;
+        if (item.slug?.current) {
+            link.href = `title.html?slug=${encodeURIComponent(item.slug.current)}`;
+        }
+
+        const image = document.createElement("img");
+        image.className = "top-ten-card__image";
+        image.src = item.coverUrl || "";
+        image.alt = item.name;
+        image.loading = "lazy";
+
+        const title = document.createElement("h3");
+        title.className = "top-ten-card__title";
+        title.textContent = item.name;
+
+        const meta = document.createElement("div");
+        meta.className = "top-ten-card__meta";
+
+        const year = document.createElement("span");
+        year.textContent = item.year || "";
+
+        const rating = document.createElement("span");
+        rating.className = "top-ten-card__rating";
+
+        const star = document.createElement("img");
+        star.src = "./assets/icons/star-icon.svg";
+        star.alt = "";
+        star.setAttribute("aria-hidden", "true");
+
+        const ratingValue = document.createElement("span");
+        ratingValue.textContent = item.imdbRating ?? "";
+
+        rating.append(star, ratingValue);
+        meta.append(year, rating);
+
+        link.append(image, title, meta);
+        slide.append(link);
+        container.append(slide);
     }
-
-    const image = document.createElement("img");
-    image.src = item.coverUrl || "";
-    image.alt = item.name;
-    image.loading = "lazy";
-
-    link.append(image);
-    slide.append(link);
-    container.append(slide);
-  }
 }
+
 
 // =========================
 // INITIALIZE SWIPERS
@@ -454,14 +486,34 @@ function renderHot(items) {
     const meta = document.createElement("div");
     meta.className = "hot-card__meta";
 
+    
+    const duration = item.contentType === "series"
+        ? (item.episodes != null ? `${item.episodes} episodes` : null)
+        : item.runtime;
+
+    const genres = (item.genres || [])
+        .slice(0, 2)
+        .map(genre => genre.charAt(0).toUpperCase() + genre.slice(1));
+
     const metaItems = [
-      item.imdbRating != null ? `IMDb ${item.imdbRating}` : null,
-      item.year,
-      item.contentType === "series" ? item.episodes : item.runtime,
-      ...(item.genres || []).slice(0, 2)
+        item.imdbRating != null ? `IMDb ${item.imdbRating}` : null,
+        item.year,
+        duration,
+        ...genres
     ].filter(Boolean);
 
-    meta.textContent = metaItems.join(" | ");
+    metaItems.forEach((item, index) => {
+    if (index > 0) {
+        const separator = document.createElement("span");
+        separator.textContent = "|";
+        meta.append(separator);
+    }
+
+    const span = document.createElement("span");
+    span.textContent = item;
+    meta.append(span);
+    });
+
 
     const details = document.createElement("div");
     details.className = "hot-card__details";
