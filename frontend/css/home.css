@@ -66,10 +66,11 @@
 }
 
 .hero-heading {
-  max-width: 600px;
-  font-size: 72px;
-  line-height: 72px;
-  font-weight: 700;
+    max-width: 600px;
+    font-size: 72px;
+    line-height: 1;
+    font-weight: 700;
+    text-wrap: balance;
 }
 
 .hero-paragraph {
@@ -543,7 +544,7 @@
 
 @media (max-width: 767px) {
   .search-section {
-    padding-block: 80px;
+    padding-block: 140px 80px;
   }
 
   .search-heading {
@@ -614,7 +615,7 @@
 ========================= */
 
 .top-ten-section {
-    padding-block: 120px;
+    padding-block: 48px;
 }
 
 .top-ten-group + .top-ten-group {
@@ -761,7 +762,7 @@
 
 @media (max-width: 767px) {
     .top-ten-section {
-        padding-block: 80px;
+        padding-block: 32px;
     }
 
     .top-ten-group + .top-ten-group {
@@ -853,6 +854,7 @@
     pointer-events: auto;
 }
 
+
 /* =========================
    METADATA
 ========================= */
@@ -880,7 +882,7 @@
 
 .hot-card__title {
     font-size: 36px;
-    line-height: 1.2;
+    line-height: 1;
 }
 
 .hot-card__summary {
@@ -900,6 +902,7 @@
     text-decoration: none;
     transition: background-color 0.25s ease;
 }
+
 
 /* =========================
    TABLET
@@ -949,7 +952,7 @@
     }
 
     .hot-card__title {
-        font-size: 20px;
+        font-size: 24px;
     }
 
     .hot-card__summary {
@@ -1110,23 +1113,24 @@
 }
 
 .blog-content__button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 156px;
-  height: 48px;
-  margin-top: 32px;
-  border-radius: 16px;
-  background-color: var(--clr-white);
-  color: var(--clr-black);
-  text-decoration: none;
-  font: inherit;
-  font-size: 16px;
-  transition: opacity 0.25s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 156px;
+    height: 48px;
+    margin-top: 32px;
+    border-radius: 16px;
+    background-color: var(--clr-white);
+    color: var(--clr-black);
+    text-decoration: none;
+    font: inherit;
+    font-size: 16px;
+    transition: background-color 0.25s ease, color 0.25s ease;
 }
 
 .blog-content__button:hover {
-  opacity: 0.85;
+    background-color: var(--clr-red);
+    color: var(--clr-white);
 }
 
 /* =========================

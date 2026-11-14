@@ -449,97 +449,118 @@ async function loadHot() {
   }
 }
 
+
+/* =========================
+   FORMAT MOVIE RUNTIME
+========================= */
+
+function formatRuntime(minutes) {
+    if (minutes == null || minutes === "") return null;
+
+    const totalMinutes = Number(minutes);
+
+    if (!Number.isFinite(totalMinutes) || totalMinutes < 0) {
+        return null;
+    }
+
+    const hours = Math.floor(totalMinutes / 60);
+    const remainingMinutes = totalMinutes % 60;
+
+    if (hours === 0) return `${remainingMinutes} min`;
+    if (remainingMinutes === 0) return `${hours} h`;
+
+    return `${hours} h ${remainingMinutes} min`;
+}
+
 // =========================
 // RENDER HOT SLIDES
 // =========================
 
 function renderHot(items) {
-  const container = document.querySelector("#hot-container");
+    const container = document.querySelector("#hot-container");
 
-  if (!container) return;
+    if (!container) return;
 
-  container.innerHTML = "";
+    container.innerHTML = "";
 
-  for (const item of items) {
-    const slide = document.createElement("div");
-    slide.className = "swiper-slide";
+    for (const item of items) {
+        const slide = document.createElement("div");
+        slide.className = "swiper-slide";
 
-    const card = document.createElement("article");
-    card.className = "hot-card";
+        const card = document.createElement("article");
+        card.className = "hot-card";
 
-    const imageWrapper = document.createElement("div");
-    imageWrapper.className = "hot-card__image";
+        const imageWrapper = document.createElement("div");
+        imageWrapper.className = "hot-card__image";
 
-    const image = document.createElement("img");
-    image.src = item.backgroundUrl || "";
-    image.alt = item.name;
-    image.loading = "lazy";
+        const image = document.createElement("img");
+        image.src = item.backgroundUrl || "";
+        image.alt = item.name;
+        image.loading = "lazy";
 
-    const overlay = document.createElement("div");
-    overlay.className = "hot-card__overlay";
+        const overlay = document.createElement("div");
+        overlay.className = "hot-card__overlay";
 
-    imageWrapper.append(image, overlay);
+        imageWrapper.append(image, overlay);
 
-    const content = document.createElement("div");
-    content.className = "hot-card__content";
+        const content = document.createElement("div");
+        content.className = "hot-card__content";
 
-    const meta = document.createElement("div");
-    meta.className = "hot-card__meta";
+        const meta = document.createElement("div");
+        meta.className = "hot-card__meta";
 
-    
-    const duration = item.contentType === "series"
-        ? (item.episodes != null ? `${item.episodes} episodes` : null)
-        : item.runtime;
+        const duration = item.contentType === "series"
+            ? (item.episodes != null ? `${item.episodes} episodes` : null)
+            : formatRuntime(item.runtime);
 
-    const genres = (item.genres || [])
-        .slice(0, 2)
-        .map(genre => genre.charAt(0).toUpperCase() + genre.slice(1));
+        const genres = (item.genres || [])
+            .slice(0, 2)
+            .map(genre => genre.charAt(0).toUpperCase() + genre.slice(1));
 
-    const metaItems = [
-        item.imdbRating != null ? `IMDb ${item.imdbRating}` : null,
-        item.year,
-        duration,
-        ...genres
-    ].filter(Boolean);
+        const metaItems = [
+            item.imdbRating != null ? `IMDb ${item.imdbRating}` : null,
+            item.year,
+            duration,
+            ...genres
+        ].filter(Boolean);
 
-    metaItems.forEach((item, index) => {
-    if (index > 0) {
-        const separator = document.createElement("span");
-        separator.textContent = "|";
-        meta.append(separator);
+        metaItems.forEach((value, index) => {
+            if (index > 0) {
+                const separator = document.createElement("span");
+                separator.textContent = "|";
+                meta.append(separator);
+            }
+
+            const span = document.createElement("span");
+            span.textContent = value;
+            meta.append(span);
+        });
+
+        const details = document.createElement("div");
+        details.className = "hot-card__details";
+
+        const title = document.createElement("h2");
+        title.className = "hot-card__title";
+        title.textContent = item.name;
+
+        const summary = document.createElement("p");
+        summary.className = "hot-card__summary";
+        summary.textContent = item.summary || "";
+
+        const button = document.createElement("a");
+        button.className = "hot-card__button";
+        button.textContent = "Explore";
+
+        if (item.slug?.current) {
+            button.href = `title.html?slug=${encodeURIComponent(item.slug.current)}`;
+        }
+
+        details.append(title, summary, button);
+        content.append(meta, details);
+        card.append(imageWrapper, content);
+        slide.append(card);
+        container.append(slide);
     }
-
-    const span = document.createElement("span");
-    span.textContent = item;
-    meta.append(span);
-    });
-
-
-    const details = document.createElement("div");
-    details.className = "hot-card__details";
-
-    const title = document.createElement("h2");
-    title.className = "hot-card__title";
-    title.textContent = item.name;
-
-    const summary = document.createElement("p");
-    summary.className = "hot-card__summary";
-    summary.textContent = item.summary || "";
-
-    const button = document.createElement("a");
-    button.className = "hot-card__button";
-    button.textContent = "Explore";
-
-    if (item.slug?.current) {
-      button.href = `title.html?slug=${encodeURIComponent(item.slug.current)}`;
-    }
-
-    details.append(title, summary, button);
-    content.append(meta, details);
-    card.append(imageWrapper, content);
-    slide.append(card);
-    container.append(slide);
-  }
 }
 
 // =========================
@@ -547,20 +568,24 @@ function renderHot(items) {
 // =========================
 
 function initHotSwiper() {
-  new Swiper(".hot-swiper", {
-    slidesPerView: 1,
-    effect: "fade",
-    fadeEffect: {
-      crossFade: true
-    },
-    loop: true,
-    speed: 800,
-    autoplay: {
-      delay: 8000,
-      disableOnInteraction: false,
-      pauseOnMouseEnter: false
-    }
-  });
+    new Swiper(".hot-swiper", {
+        slidesPerView: 1,
+        effect: "fade",
+        fadeEffect: {
+            crossFade: true
+        },
+        loop: true,
+        speed: 800,
+
+        allowTouchMove: false,
+        simulateTouch: false,
+
+        autoplay: {
+            delay: 8000,
+            disableOnInteraction: false,
+            pauseOnMouseEnter: false
+        }
+    });
 }
 
 // =========================
@@ -568,6 +593,7 @@ function initHotSwiper() {
 // =========================
 
 loadHot();
+
 
 
 
