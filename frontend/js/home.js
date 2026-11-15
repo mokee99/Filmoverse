@@ -753,3 +753,54 @@ function initBlogSwiper(blogs) {
 // =========================
 
 loadBlogSlider();
+
+
+
+// =========================
+// NEWSLETTER SECTION
+// =========================
+
+const newsletterForm = document.querySelector("#newsletter-form");
+const newsletterEmail = document.querySelector("#newsletter-email");
+const newsletterMessage = document.querySelector("#newsletter-message");
+
+if (newsletterForm && newsletterEmail && newsletterMessage) {
+    newsletterForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+
+        const email = newsletterEmail.value.trim();
+        const submitButton = newsletterForm.querySelector('button[type="submit"]');
+
+        submitButton.disabled = true;
+        newsletterMessage.textContent = "Submitting...";
+
+
+          try {
+              const response = await fetch("/.netlify/functions/newsletter", {
+                  method: "POST",
+                  headers: {
+                      "Content-Type": "application/json"
+                  },
+                  body: JSON.stringify({
+                      email,
+                      consent: document.querySelector("#newsletter-consent").checked
+                  })
+              });
+
+
+            const result = await response.json();
+
+            if (!response.ok) {
+                throw new Error(result.error || "Something went wrong.");
+            }
+
+            newsletterMessage.textContent = "Check your inbox to confirm your subscription!";
+            newsletterForm.reset();
+
+        } catch (error) {
+            newsletterMessage.textContent = error.message;
+        } finally {
+            submitButton.disabled = false;
+        }
+    });
+}

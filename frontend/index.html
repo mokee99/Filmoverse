@@ -340,11 +340,20 @@
 
       <p class="newsletter-description">Get the latest reviews, curated collections, hidden gems, and must-watch releases delivered straight to your inbox.</p>
 
+
       <!-- NEWSLETTER FORM -->
       <form class="newsletter-form" id="newsletter-form">
-        <input type="email" class="newsletter-input" id="newsletter-email" name="email" placeholder="Enter your email" aria-label="Email address" autocomplete="email" required>
-        <button type="submit" class="newsletter-submit">SUBMIT</button>
+          <div class="newsletter-form__fields">
+              <input type="email" class="newsletter-input" id="newsletter-email" name="email" placeholder="Enter your email" aria-label="Email address" autocomplete="email" required>
+              <button type="submit" class="newsletter-submit">SUBMIT</button>
+          </div>
+
+          <label class="newsletter-consent">
+              <input type="checkbox" id="newsletter-consent" name="consent" required>
+              <span>I agree to receive Filmoverse emails and can unsubscribe anytime.</span>
+          </label>
       </form>
+
 
       <p class="newsletter-message" id="newsletter-message" role="status" aria-live="polite"></p>
 
