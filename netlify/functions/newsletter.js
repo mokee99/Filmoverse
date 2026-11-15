@@ -55,7 +55,8 @@ exports.handler = async (event) => {
         });
 
         if (!response.ok) {
-            console.error("Brevo request failed:", response.status);
+            const errorBody = await response.text();
+            console.error("Brevo request failed:", response.status, errorBody);
             return json(502, {
                 error: "Unable to process your subscription. Please try again."
             });
