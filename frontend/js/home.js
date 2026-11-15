@@ -72,7 +72,7 @@ let searchQuery = "";
 async function loadMovies() {
   try {
     const movies = await fetchFromSanity(`
-      *[_type == "movie"] | order(year desc, name asc) {
+      *[_type == "movie"] | order(name asc) {
         _id,
         name,
         slug,
@@ -165,7 +165,9 @@ function renderMovies() {
     star.setAttribute("aria-hidden", "true");
 
     const ratingValue = document.createElement("span");
-    ratingValue.textContent = movie.imdbRating ?? "N/A";
+    ratingValue.textContent = movie.imdbRating != null
+      ? Number(movie.imdbRating).toFixed(1)
+      : "N/A";
 
     rating.append(star, ratingValue);
     details.append(year, rating);
@@ -364,7 +366,9 @@ function renderTopTen(items, containerSelector) {
         star.setAttribute("aria-hidden", "true");
 
         const ratingValue = document.createElement("span");
-        ratingValue.textContent = item.imdbRating ?? "";
+        ratingValue.textContent = item.imdbRating != null
+          ? Number(item.imdbRating).toFixed(1)
+          : "";
 
         rating.append(star, ratingValue);
         meta.append(year, rating);
@@ -518,10 +522,12 @@ function renderHot(items) {
             .map(genre => genre.charAt(0).toUpperCase() + genre.slice(1));
 
         const metaItems = [
-            item.imdbRating != null ? `IMDb ${item.imdbRating}` : null,
-            item.year,
-            duration,
-            ...genres
+          item.imdbRating != null
+              ? `IMDb ${Number(item.imdbRating).toFixed(1)}`
+              : null,
+          item.year,
+          duration,
+          ...genres
         ].filter(Boolean);
 
         metaItems.forEach((value, index) => {

@@ -248,7 +248,9 @@ function renderRelatedTitles(titles) {
     star.setAttribute("aria-hidden", "true");
 
     const ratingValue = document.createElement("span");
-    ratingValue.textContent = movie.imdbRating ?? "N/A";
+    ratingValue.textContent = movie.imdbRating != null
+      ? Number(movie.imdbRating).toFixed(1)
+      : "N/A";
 
     rating.append(star, ratingValue);
     details.append(year, rating);
