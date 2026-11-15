@@ -69,29 +69,35 @@ let searchQuery = "";
 // LOAD MOVIES FROM SANITY
 // =========================
 
+
 async function loadMovies() {
-  try {
-    const movies = await fetchFromSanity(`
-      *[_type == "movie"] | order(name asc) {
-        _id,
-        name,
-        slug,
-        contentType,
-        year,
-        imdbRating,
-        genres,
-        trending,
-        "coverUrl": coverImage.asset->url
-      }
-    `);
+    try {
+        const movies = await fetchFromSanity(`
+            *[_type == "movie"] | order(name asc) {
+                _id,
+                name,
+                slug,
+                contentType,
+                year,
+                imdbRating,
+                genres,
+                trending,
+                "coverUrl": coverImage.asset->url
+            }
+        `);
 
-    allMovies = movies;
-    applyFilters();
+        allMovies = movies;
+        applyFilters();
 
-  } catch (error) {
-    console.error("Failed to load movies:", error);
-  }
+    } catch (error) {
+        console.error("Failed to load movies:", error);
+    } finally {
+        // Obaveštavamo navigaciju da je Search završio početno učitavanje.
+        document.documentElement.dataset.searchReady = "true";
+        document.dispatchEvent(new Event("filmoverse:search-ready"));
+    }
 }
+
 
 // =========================
 // FILTER MOVIES
@@ -278,6 +284,46 @@ function applyGenreFromUrl() {
 
 applyGenreFromUrl();
 loadMovies();
+
+
+/* =========================
+   NAVIGATION FROM OTHER PAGES
+========================= */
+
+function scrollToInitialSection() {
+    const hash = window.location.hash;
+
+    if (!hash) return;
+
+    const targetId = decodeURIComponent(hash.substring(1));
+    const target = document.getElementById(targetId);
+
+    if (!target) return;
+
+    const scrollToTarget = () => {
+        requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+                target.scrollIntoView({
+                    behavior: "instant",
+                    block: "start"
+                });
+            });
+        });
+    };
+
+    if (document.documentElement.dataset.searchReady === "true") {
+        scrollToTarget();
+    } else {
+        document.addEventListener(
+            "filmoverse:search-ready",
+            scrollToTarget,
+            { once: true }
+        );
+    }
+}
+
+scrollToInitialSection();
+
 
 
 // =========================

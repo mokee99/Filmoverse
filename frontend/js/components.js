@@ -128,6 +128,9 @@ function initNavbar() {
         });
     });
 
+
+
+
     /* MENU NAVIGATION */
 
     cards.forEach((card) => {
@@ -139,13 +142,11 @@ function initNavbar() {
                 destination.origin === currentPage.origin &&
                 destination.pathname === currentPage.pathname;
 
-            // Navigate normally to another page.
             if (!samePage) {
                 closeMenu();
                 return;
             }
 
-            // Smooth scroll to a section on the current page.
             if (destination.hash) {
                 const targetId = decodeURIComponent(
                     destination.hash.substring(1)
@@ -157,7 +158,7 @@ function initNavbar() {
                     event.preventDefault();
                     closeMenu();
 
-                    requestAnimationFrame(() => {
+                    const scrollToTarget = () => {
                         target.scrollIntoView({
                             behavior: window.matchMedia(
                                 "(prefers-reduced-motion: reduce)"
@@ -165,16 +166,25 @@ function initNavbar() {
                             block: "start"
                         });
 
-                        history.replaceState(
-                            null,
-                            "",
-                            destination.hash
+                        history.replaceState(null, "", destination.hash);
+                    };
+
+                    if (document.documentElement.dataset.searchReady === "true") {
+                        requestAnimationFrame(scrollToTarget);
+                    } else {
+                        document.addEventListener(
+                            "filmoverse:search-ready",
+                            () => {
+                                requestAnimationFrame(scrollToTarget);
+                            },
+                            { once: true }
                         );
-                    });
+                    }
                 }
             }
         });
     });
+
 
     /* LOGO NAVIGATION */
 
