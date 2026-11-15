@@ -1,3 +1,411 @@
+
+/* =========================
+   NAVBAR
+========================= */
+
+.navbar {
+    position: relative;
+    z-index: 1001;
+    height: 70px;
+    background-color: var(--clr-black);
+}
+
+.navbar.is-menu-open {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    z-index: 1001;
+}
+
+.navbar__container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+}
+
+.navbar__logo {
+    display: inline-flex;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.navbar__logo img {
+    display: block;
+    width: 218px;
+    max-width: 100%;
+    height: auto;
+}
+
+/* HAMBURGER */
+
+.navbar__toggle {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+}
+
+.navbar__line {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background-color: var(--clr-white);
+    transform-origin: center;
+    transition:
+        width 0.25s ease,
+        transform 0.3s ease,
+        opacity 0.2s ease;
+}
+
+/* HAMBURGER HOVER */
+
+@media (hover: hover) {
+    .navbar__toggle:not(.is-open):hover
+    .navbar__line:first-child,
+    .navbar__toggle:not(.is-open):hover
+    .navbar__line:last-child {
+        width: 18px;
+    }
+}
+
+/* HAMBURGER TO X */
+
+.navbar__toggle.is-open .navbar__line:first-child {
+    transform: translateY(8px) rotate(45deg);
+}
+
+.navbar__toggle.is-open .navbar__line:nth-child(2) {
+    opacity: 0;
+    transform: scaleX(0);
+}
+
+.navbar__toggle.is-open .navbar__line:last-child {
+    transform: translateY(-8px) rotate(-45deg);
+}
+
+/* =========================
+   FULLSCREEN MENU
+========================= */
+
+.fullscreen-menu {
+    position: fixed;
+    inset: 70px 0 0;
+    z-index: 1000;
+    display: flex;
+    overflow: hidden;
+    background-color: var(--clr-red);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition:
+        opacity 0.3s ease,
+        visibility 0.3s ease;
+}
+
+.fullscreen-menu.is-open {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+.fullscreen-menu__grid {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+}
+
+/* =========================
+   DESKTOP MENU CARDS
+========================= */
+
+.menu-card {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 19.444444%;
+    min-width: 0;
+    overflow: hidden;
+    border-right: 1px solid var(--clr-white);
+    background-color: var(--clr-red);
+    color: var(--clr-white);
+    text-decoration: none;
+    transition:
+        flex-basis 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.menu-card:last-child {
+    border-right: 0;
+}
+
+.menu-card.is-active {
+    flex-basis: 41.666667%;
+}
+
+/* =========================
+   MENU IMAGES
+========================= */
+
+.menu-card__image {
+    position: absolute;
+    inset: 0;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.menu-card.is-active .menu-card__image {
+    opacity: 1;
+}
+
+/* DESKTOP IMAGES */
+
+.menu-card--explore .menu-card__image {
+    background-image:
+        url("../assets/images/menu/menu-explore-desktop.webp");
+}
+
+.menu-card--trending .menu-card__image {
+    background-image:
+        url("../assets/images/menu/menu-trending-desktop.webp");
+}
+
+.menu-card--blog .menu-card__image {
+    background-image:
+        url("../assets/images/menu/menu-blog-desktop.webp");
+}
+
+.menu-card--newsletter .menu-card__image {
+    background-image:
+        url("../assets/images/menu/menu-newsletter-desktop.webp");
+}
+
+/* =========================
+   BLACK IMAGE OVERLAY
+========================= */
+
+.menu-card__overlay {
+    position: absolute;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.4);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.menu-card.is-active .menu-card__overlay {
+    opacity: 1;
+}
+
+/* =========================
+   MENU CONTENT
+========================= */
+
+.menu-card__content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    width: 100%;
+    padding: 16px;
+}
+
+.menu-card__title {
+    color: var(--clr-white);
+    font-size: 40px;
+    line-height: 1.1;
+    white-space: nowrap;
+}
+
+.menu-card__arrow {
+    display: block;
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    opacity: 0;
+    transform: translateX(-8px);
+    transition:
+        opacity 0.3s ease,
+        transform 0.3s ease;
+}
+
+.menu-card.is-active .menu-card__arrow {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* =========================
+   NEWS / NEWSLETTER
+========================= */
+
+.menu-card__title--full {
+    display: none;
+}
+
+.menu-card--newsletter.is-active
+.menu-card__title--short {
+    display: none;
+}
+
+.menu-card--newsletter.is-active
+.menu-card__title--full {
+    display: inline;
+}
+
+/* =========================
+   TABLET AND MOBILE
+   1024px AND BELOW
+========================= */
+
+@media (max-width: 1024px) {
+
+    .fullscreen-menu {
+        overflow-y: auto;
+        overscroll-behavior-y: contain;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .fullscreen-menu__grid {
+        flex-direction: column;
+        height: auto;
+        min-height: 100%;
+    }
+
+    .menu-card,
+    .menu-card.is-active {
+        flex: 1 0 calc((100dvh - 70px) / 4);
+        min-height: 140px;
+        width: 100%;
+        border-right: 0;
+        border-bottom: 1px solid var(--clr-white);
+        transition: none;
+    }
+
+    .menu-card:last-child {
+        border-bottom: 0;
+    }
+
+    /* TABLET / MOBILE IMAGES */
+
+    .menu-card--explore .menu-card__image {
+        background-image:
+            url("../assets/images/menu/menu-explore-mobile.webp");
+    }
+
+    .menu-card--trending .menu-card__image {
+        background-image:
+            url("../assets/images/menu/menu-trending-mobile.webp");
+    }
+
+    .menu-card--blog .menu-card__image {
+        background-image:
+            url("../assets/images/menu/menu-blog-mobile.webp");
+    }
+
+    .menu-card--newsletter .menu-card__image {
+        background-image:
+            url("../assets/images/menu/menu-newsletter-mobile.webp");
+    }
+
+    /* ALL IMAGES AND ARROWS VISIBLE */
+
+    .menu-card__image,
+    .menu-card__overlay,
+    .menu-card__arrow {
+        opacity: 1;
+    }
+
+    .menu-card__arrow {
+        width: 30px;
+        height: 30px;
+        transform: none;
+    }
+
+    .menu-card__title {
+        font-size: 48px;
+    }
+
+    /* FULL NEWSLETTER TITLE */
+
+    .menu-card__title--short,
+    .menu-card--newsletter.is-active
+    .menu-card__title--short {
+        display: none;
+    }
+
+    .menu-card__title--full,
+    .menu-card--newsletter.is-active
+    .menu-card__title--full {
+        display: inline;
+    }
+}
+
+/* =========================
+   MOBILE PORTRAIT
+========================= */
+
+@media (max-width: 767px) and (orientation: portrait) {
+
+    .menu-card__title {
+        font-size: 40px;
+    }
+
+    .menu-card__arrow {
+        width: 24px;
+        height: 24px;
+    }
+
+    .navbar__logo img {
+    width: 180px;
+}
+}
+
+/* =========================
+   MOBILE LANDSCAPE
+========================= */
+
+@media (max-width: 1024px) and (orientation: landscape) {
+
+    .menu-card,
+    .menu-card.is-active {
+        flex: 0 0 180px;
+        min-height: 180px;
+    }
+}
+
+/* =========================
+   REDUCED MOTION
+========================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .navbar__line,
+    .fullscreen-menu,
+    .menu-card,
+    .menu-card__image,
+    .menu-card__overlay,
+    .menu-card__arrow {
+        transition: none;
+    }
+}
+
+
+
 /* =========================
    FOOTER
 ========================= */

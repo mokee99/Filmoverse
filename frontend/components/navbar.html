@@ -1,0 +1,146 @@
+
+<!-- =========================
+     NAVBAR
+========================= -->
+
+<header class="navbar">
+    <div class="container-lg navbar__container">
+
+        <!-- LOGO -->
+        <a
+            href="./index.html"
+            class="navbar__logo"
+            aria-label="Filmoverse Home"
+        >
+            <img
+                src="./assets/images/menu/menu-logo.svg"
+                alt="Filmoverse"
+            >
+        </a>
+
+        <!-- HAMBURGER -->
+        <button
+            class="navbar__toggle"
+            type="button"
+            aria-label="Open menu"
+            aria-expanded="false"
+            aria-controls="fullscreen-menu"
+        >
+            <span class="navbar__line"></span>
+            <span class="navbar__line"></span>
+            <span class="navbar__line"></span>
+        </button>
+
+    </div>
+</header>
+
+<!-- =========================
+     FULLSCREEN MENU
+========================= -->
+
+<nav
+    class="fullscreen-menu"
+    id="fullscreen-menu"
+    aria-label="Main navigation"
+    aria-hidden="true"
+    inert
+>
+    <div class="fullscreen-menu__grid">
+
+        <!-- EXPLORE -->
+        <a
+            href="./index.html#search"
+            class="menu-card menu-card--explore is-active"
+        >
+            <span class="menu-card__image"></span>
+            <span class="menu-card__overlay"></span>
+
+            <span class="menu-card__content">
+                <img
+                    class="menu-card__arrow"
+                    src="./assets/images/menu/arrow-menu.svg"
+                    alt=""
+                >
+                <span class="menu-card__title">
+                    Explore
+                </span>
+            </span>
+        </a>
+
+        <!-- TRENDING -->
+        <a
+            href="./index.html#hot"
+            class="menu-card menu-card--trending"
+        >
+            <span class="menu-card__image"></span>
+            <span class="menu-card__overlay"></span>
+
+            <span class="menu-card__content">
+                <img
+                    class="menu-card__arrow"
+                    src="./assets/images/menu/arrow-menu.svg"
+                    alt=""
+                >
+                <span class="menu-card__title">
+                    Trending
+                </span>
+            </span>
+        </a>
+
+        <!-- BLOG -->
+        <a
+            href="./index.html#blog"
+            class="menu-card menu-card--blog"
+        >
+            <span class="menu-card__image"></span>
+            <span class="menu-card__overlay"></span>
+
+            <span class="menu-card__content">
+                <img
+                    class="menu-card__arrow"
+                    src="./assets/images/menu/arrow-menu.svg"
+                    alt=""
+                >
+                <span class="menu-card__title">
+                    Blog
+                </span>
+            </span>
+        </a>
+
+        <!-- NEWSLETTER -->
+        <a
+            href="./index.html#newsletter"
+            class="menu-card menu-card--newsletter"
+            aria-label="Newsletter"
+        >
+            <span class="menu-card__image"></span>
+            <span class="menu-card__overlay"></span>
+
+            <span class="menu-card__content">
+                <img
+                    class="menu-card__arrow"
+                    src="./assets/images/menu/arrow-menu.svg"
+                    alt=""
+                >
+
+                <!-- DESKTOP CLOSED -->
+                <span
+                    class="menu-card__title menu-card__title--short"
+                    aria-hidden="true"
+                >
+                    News
+                </span>
+
+                <!-- DESKTOP OPEN / TABLET / MOBILE -->
+                <span
+                    class="menu-card__title menu-card__title--full"
+                    aria-hidden="true"
+                >
+                    Newsletter
+                </span>
+            </span>
+        </a>
+
+    </div>
+</nav>
+
